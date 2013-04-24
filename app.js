@@ -40,7 +40,7 @@ app.get('/handshake', function(req, res) {
 });
 
 app.get('/hotel', function(req, res) {
-  HotelAPI.request({}, function(err, hotels) {
+  HotelAPI.request({latitude: 52.373503, longitude: 4.896812, minRate: req.param('minRate'), maxRate: req.param('maxRate'), maxRadius: req.param('maxRadius')}, function(err, hotels) {
     if (err) res.send(err);
     res.send(hotels);
   });
