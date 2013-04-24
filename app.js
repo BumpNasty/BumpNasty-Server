@@ -1,6 +1,7 @@
 var express = require('express');
 var Handshaker = require('./lib/handshake');
 var HotelAPI = require('./lib/hotel-api');
+var HotelRequester = require('./lib/hotel-requester');
 var app = express();
 
 var handshakes = [];
@@ -15,7 +16,7 @@ app.get('/hello.json', function(req, res){
 
 app.get('/handshake', function(req, res) {
   var id = req.param('id');
-  Handshaker.request({
+  var shaker = Handshaker.request({
     latitude: parseFloat(req.param('latitude')),
     longitude: parseFloat(req.param('longitude')),
     minRate: req.param('minRate'),
@@ -31,11 +32,12 @@ app.get('/handshake', function(req, res) {
   var tryFrequency = 200;
   var timeout = 10000; // 10 seconds
   interval = setInterval(function() {
-    var shake = Handshaker.doHandshake(id);
-    if (shake) {
-      HotelAPI.request(shake.toJSON(), function(err, hotels) {
+    var shakee = Handshaker.doHandshake(id);
+    if (shakee) {
+      HotelRequester.request(shaker.toJSON(), shakee.toJSON(), function(err, hotels) {
         res.send(hotels);
       });
+      clearInterval(interval);
     } else {
       timeout -= tryFrequency;
       if (timeout <= 0) {
