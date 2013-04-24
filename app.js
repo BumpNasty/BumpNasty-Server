@@ -18,6 +18,11 @@ app.get('/handshake', function(req, res) {
   Handshaker.request({
     latitude: parseFloat(req.param('latitude')),
     longitude: parseFloat(req.param('longitude')),
+    minRate: req.param('minRate'),
+    maxRate: req.param('maxRate'),
+    minStarRating: req.param('minStarRating'),
+    maxStarRating: req.param('maxStarRating'),
+    maxRadius: req.param('maxRadius'),
     timestamp: new Date(),
     id: id
   });
@@ -28,7 +33,9 @@ app.get('/handshake', function(req, res) {
   interval = setInterval(function() {
     var shake = Handshaker.doHandshake(id);
     if (shake) {
-      res.send(shake);
+      HotelAPI.request(shake.toJSON(), function(err, hotels) {
+        res.send(hotels);
+      });
     } else {
       timeout -= tryFrequency;
       if (timeout <= 0) {
