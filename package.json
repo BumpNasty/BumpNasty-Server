@@ -4,6 +4,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "express": "3.2"
+    "express": "3.2",
+    "underscore": "1.4.4",
+    "backbone": "1.0"
   }
 }
