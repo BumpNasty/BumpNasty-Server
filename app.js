@@ -35,7 +35,10 @@ app.get('/handshake', function(req, res) {
     var shakee = Handshaker.doHandshake(id);
     if (shakee) {
       HotelRequester.request(shaker.toJSON(), shakee.toJSON(), function(err, hotels) {
-        res.send(hotels);
+        res.send({
+          other: shakee,
+          hotels: hotels
+        });
       });
       clearInterval(interval);
     } else {
