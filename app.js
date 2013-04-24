@@ -1,5 +1,6 @@
 var express = require('express');
 var Handshaker = require('./lib/handshake');
+var HotelAPI = require('./lib/hotel-api');
 var app = express();
 
 var handshakes = [];
@@ -36,6 +37,13 @@ app.get('/handshake', function(req, res) {
       };
     };
   }, tryFrequency);
+});
+
+app.get('/hotel', function(req, res) {
+  HotelAPI.request({}, function(err, hotels) {
+    if (err) res.send(err);
+    res.send(hotels);
+  });
 });
 
 var port = process.env.PORT || 80;
