@@ -58,6 +58,17 @@ app.get('/hotel', function(req, res) {
   });
 });
 
+app.get('/bookHotel', function(req, res) {
+  HotelAPI.bookingRequest({latitude: 52.373503, longitude: 4.896812, minRate: req.param('minRate'), maxRate: req.param('maxRate'), maxRadius: req.param('maxRadius')}, function(err, hotels) {
+    if (err) res.send(err);
+    res.send(hotels);
+  });
+});
+
+app.get('/logs', function(req, res) {
+  res.send(Handshaker.handshakes.toJSON());
+})
+
 var port = process.env.PORT || 80;
 app.listen(port, function() {
   console.log("Listening on " + port);
