@@ -66,7 +66,7 @@ app.get('/bookHotel', function(req, res) {
 });
 
 app.get('/logs', function(req, res) {
-  res.send(Handshaker.handshakes.toJSON());
+  res.send(Handshaker.handshakeHistory.toJSON());
 })
 
 var port = process.env.PORT || 80;
