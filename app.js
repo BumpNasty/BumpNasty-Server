@@ -37,7 +37,7 @@ app.get('/handshake', function(req, res) {
       HotelRequester.request(shaker.toJSON(), shakee.toJSON(), function(err, hotels) {
         res.send({
           other: shakee,
-          hotels: hotels
+          hotel: HotelRequester._hotelFormatter(hotels)
         });
       });
       clearInterval(interval);
@@ -54,7 +54,7 @@ app.get('/handshake', function(req, res) {
 app.get('/hotel', function(req, res) {
   HotelAPI.request({latitude: 52.373503, longitude: 4.896812, minRate: req.param('minRate'), maxRate: req.param('maxRate'), maxRadius: req.param('maxRadius')}, function(err, hotels) {
     if (err) res.send(err);
-    res.send(hotels);
+    res.send(HotelRequester._hotelFormatter(hotels));
   });
 });
 
