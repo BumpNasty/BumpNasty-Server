@@ -16,7 +16,7 @@ app.get('/hello.json', function(req, res){
 });
 
 app.get('/taxi', function(req, res) {
- res.send({taxi: 'ok'});
+ res.send({taxi: 'ok', really: 'yes'});
 });
 
 app.get('/handshake', function(req, res) {
