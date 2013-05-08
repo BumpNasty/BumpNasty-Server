@@ -15,6 +15,10 @@ app.get('/hello.json', function(req, res){
   res.send({hello: 'world'});
 });
 
+app.get('/taxi', function(req, res) {
+ res.send({taxi: 'ok'});
+});
+
 app.get('/handshake', function(req, res) {
   var id = req.param('id');
   var shaker = Handshaker.request({
