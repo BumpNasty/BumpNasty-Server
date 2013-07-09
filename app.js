@@ -2,10 +2,13 @@ var express = require('express');
 var Handshaker = require('./lib/handshake');
 var HotelAPI = require('./lib/hotel-api');
 var HotelRequester = require('./lib/hotel-requester');
+var Cabforce = require('./controller/cabforce');
+
 var app = express();
 
-var handshakes = [];
+var cabforceController = new Cabforce(app);
 
+var handshakes = [];
 
 app.get('/hello.txt', function(req, res){
   res.send('Hello World');
@@ -13,10 +16,6 @@ app.get('/hello.txt', function(req, res){
 
 app.get('/hello.json', function(req, res){
   res.send({hello: 'world'});
-});
-
-app.get('/taxi', function(req, res) {
- res.send({taxi: 'ok', really: 'yes'});
 });
 
 app.get('/handshake', function(req, res) {
